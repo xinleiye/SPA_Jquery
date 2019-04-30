@@ -1,0 +1,19 @@
+{
+  "name": "spa_jquery",
+  "version": "1.0.0",
+  "description": "single page application with jquery1.12.4",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "jquery",
+    "spa"
+  ],
+  "author": "xinlei_ye",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "asdf"
+  }
+}
