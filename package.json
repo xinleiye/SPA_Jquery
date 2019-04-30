@@ -4,7 +4,33 @@
   "description": "single page application with jquery1.12.4",
   "main": "index.js",
   "scripts": {
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "build": "node build/build.js",
     "test": "test"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.2.6",
+    "copy-webpack-plugin": "^4.5.1",
+    "css-loader": "^0.28.11",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-html": "^3.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^5.2.0",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^1.1.11",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "less": "^2.7.3",
+    "less-loader": "^4.1.0",
+    "url-loader": "^0.5.8",
+    "webpack": "^3.11.0",
+    "webpack-bundle-analyzer": "^2.11.1",
+    "webpack-dev-server": "^2.11.2",
+    "webpack-merge": "^4.1.2"
   },
   "keywords": [
     "jquery",
@@ -15,5 +41,9 @@
   "repository": {
     "type": "git",
     "url": "asdf"
+  },
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
   }
 }
