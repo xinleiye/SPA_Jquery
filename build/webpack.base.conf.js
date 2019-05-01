@@ -7,9 +7,7 @@ function resolve (dir) {
     return path.join(__dirname, "..", dir);
 }
 
-isProductionEnv = process.env.node_ENV === "production";
-
-module.exprots = {
+module.exports = {
     context: path.resolve(__dirname, "../"),
     entry: {
         app: ["./src/index.js"]
@@ -17,23 +15,29 @@ module.exprots = {
     output: {
         path: config.build.assetsRoot,
         filename: "[name].[hash].js",
-        publicPath: isProductionEnv ? config.build.assetsPublicPath : config.dev.assetsPublicPath
+        publicPath: process.env.node_ENV === "production" ? config.build.assetsPublicPath : config.dev.assetsPublicPath
+    },
+    externals: {
+        "jquery": "window.jquery"
     },
     resolve: {
-        "@": resolve("src")
+        extensions: [".js"],
+        alias: {
+            "@": resolve("src")
+        }
     },
     module: {
         rules: [
-            ...(config.dev.useEslint ? [{
+            /* ...(config.dev.useEslint ? [{
                 test: /\.(js)$/,
                 loader: "eslint-loader",
                 enforce: "pre",
                 include: [resolve("src"), resolve("test")],
                 options: {
-                    formatter: require(""),
+                    formatter: require("eslint-friendly-formatter"),
                     emitWarning: !config.dev.showEslintErrorsInOverlay
                 }
-            }] : []),
+            }] : []), */
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: "url-loader",
