@@ -39,11 +39,19 @@ module.exports = {
                 }
             }] : []), */
             {
+                test: /\.(css)$/,
+                loader: "style-loader!css-loader"
+            },
+            {
+                test: /\.(less)$/,
+                loader: "style-loader!css-loader!less-loader"
+            },
+            {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: "url-loader",
                 options: {
-                    limit: 2000,
-                    name: utils.assetsPath("assets/image/[name].[ext]")
+                    limit: 1,
+                    name: utils.assetsPath("assets/images/[name].[ext]")
                 }
             }
         ]

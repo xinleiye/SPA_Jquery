@@ -9,7 +9,7 @@ module.exports = {
         host: "localhost",
         port: 8080,
         autoOpenBrowser: false,
-        erroyOverlay: true,
+        errorOverlay: true,
         notifyOnErrors: true,
         poll: false,
         useEslint: true,
