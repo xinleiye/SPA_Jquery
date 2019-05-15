@@ -1,44 +1,49 @@
 "use strict";
 
 const webpack = require("webpack");
+// const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
 const merge = require("webpack-merge");
-const copyWebpackPlugin = require('copy-webpack-plugin');
+// const copyWebpackPlugin = require('copy-webpack-plugin');
 const portfinder = require("portfinder");
 const utils = require("./utils");
 const config = require("../config");
 const baseWebpackConfig = require("./webpack.base.conf");
 
 const viewCoinfg = utils.createViewWebpackConfig("../src/view/");
-const viewHtml = [];
-const viewController = [];
+const viewTemplate = [];
+const viewController = {};
 viewCoinfg.map(function (file) {
-    viewHtml.push(new HtmlWebpackPlugin({
+    viewTemplate.push(new HtmlWebpackPlugin({
         filename: `${config.dev.assetsSubDirectory}/html/${file.fileName}.html`,
         template: file.template,
-        chunks: [file.fileName]
+        inject: false
     }));
-    viewController.push({
-        from: file.controller,
-        to: `${config.dev.assetsSubDirectory}/js/${file.fileName}.js`
-    });
+
+    viewController[file.fileName] = [file.controller];
 });
 
+const entries = merge({index: ["./src/index.js"]}, viewController);
+
 const devWebpackConfig = merge(baseWebpackConfig, {
-    module: {},
+    entry: entries,
     devtool: config.dev.devtool,
     output: {
-        chunkFilename: "[name].[hash:8].js"
+        path: config.dev.assetsRoot,
+        filename: utils.assetsPath("js/[name].js")
     },
     devServer: {
         clientLogLevel: "warning",
+        // 请求资源发生404错误时，是否使用index.html替代：false：不替代
         historyApiFallback: false,
         hot: true,
+        // true: 对所有服务器采用gzip压缩
         compress: true,
         host: process.env.HOST || config.dev.host,
         port: process.env.PORT || config.dev.port,
         open: config.dev.autoOpenBrowser,
+        // 编译出错时，是否在浏览器显示错误
         overlay: config.dev.errorOverlay ? {
             warning: false,
             errors: true
@@ -60,10 +65,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         new HtmlWebpackPlugin({
             filename: "index.html",
             template: "index.html",
-            inject: true
+            inject: true,
+            chunks: ["index"]
         }),
-        ...viewHtml,
-        new copyWebpackPlugin(viewController)
+        ...viewTemplate
     ]
 });
 
@@ -86,5 +91,5 @@ module.exports = new Promise((resolve, reject) => {
 
             resolve(devWebpackConfig);
         }
-    })
+    });
 });

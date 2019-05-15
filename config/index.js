@@ -4,8 +4,9 @@ const path = require("path");
 
 module.exports = {
     dev: {
-        assetsSubDirectory: "static",
+        assetsRoot: path.resolve(__dirname, "../dist"),
         assetsPublicPath: "/",
+        assetsSubDirectory: "static",
         host: "localhost",
         port: 8080,
         autoOpenBrowser: false,
@@ -27,8 +28,8 @@ module.exports = {
     build: {
         index: path.resolve(__dirname, "../dist/index.html"),
         assetsRoot: path.resolve(__dirname, "../dist"),
+        assetsPublicPath: "/",
         assetsSubDirectory: "static",
-        assetsPublicPath: "/prod",
 
         producionSourceMap: true,
         devtool: "#source-map",
