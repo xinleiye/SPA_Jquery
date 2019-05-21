@@ -1,4 +1,4 @@
-"use strict";
+ï»¿"use strict";
 
 const webpack = require("webpack");
 // const path = require("path");
@@ -35,15 +35,15 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     },
     devServer: {
         clientLogLevel: "warning",
-        // ÇëÇó×ÊÔ´·¢Éú404´íÎóÊ±£¬ÊÇ·ñÊ¹ÓÃindex.htmlÌæ´ú£ºfalse£º²»Ìæ´ú
+        // è¯·æ±‚èµ„æºå‘ç”Ÿ404é”™è¯¯æ—¶ï¼Œæ˜¯å¦ä½¿ç”¨index.htmlæ›¿ä»£ï¼šfalseï¼šä¸æ›¿ä»£
         historyApiFallback: false,
         hot: true,
-        // true: ¶ÔËùÓĞ·şÎñÆ÷²ÉÓÃgzipÑ¹Ëõ
+        // true: å¯¹æ‰€æœ‰æœåŠ¡å™¨é‡‡ç”¨gzipå‹ç¼©
         compress: true,
         host: process.env.HOST || config.dev.host,
         port: process.env.PORT || config.dev.port,
         open: config.dev.autoOpenBrowser,
-        // ±àÒë³ö´íÊ±£¬ÊÇ·ñÔÚä¯ÀÀÆ÷ÏÔÊ¾´íÎó
+        // ç¼–è¯‘å‡ºé”™æ—¶ï¼Œæ˜¯å¦åœ¨æµè§ˆå™¨æ˜¾ç¤ºé”™è¯¯
         overlay: config.dev.errorOverlay ? {
             warning: false,
             errors: true

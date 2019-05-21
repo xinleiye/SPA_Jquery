@@ -7,8 +7,8 @@ const config = require("../config");
 const merge = require("webpack-merge");
 const baseWebpackConfig = require("./webpack.base.conf");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-/* const CopyWebpackPlugin = require("copy-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+/* const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
 const MomentLocalesPlugin = require("moment-locales-webpack-plugin"); */
 
@@ -62,13 +62,13 @@ const webpackConfig = merge(baseWebpackConfig, {
                 : config.build.index,
             template: "index.html",
             inject: true,
-            chunks: ["index"],
+            chunks: ["manifest", "vendor", "common", "index"],
             minify: {
                 removeComments: true,
                 collaspseWhitespace: true,
                 removeAttributeQuotes: true
             },
-            chunksSortMode: "dependency"
+            chunksSortMode: "manual"
         }),
         new webpack.HashedModuleIdsPlugin(),
         new webpack.optimize.ModuleConcatenationPlugin(),
@@ -102,15 +102,22 @@ const webpackConfig = merge(baseWebpackConfig, {
             children: true,
             minChunks: 5
         }),
-        ...viewTemplate/* ,
+        ...viewTemplate,
 
         new CopyWebpackPlugin([
             {
-                from: path.resolve(__dirname, "../static"),
-                to: config.build.assetsSubDirectory,
+                from: path.resolve(__dirname, "../src/lib"),
+                to: path.resolve(__dirname, "../dist/" + config.build.assetsSubDirectory + "/lib"),
                 ignore: [".*"]
             }
         ]),
+        new CopyWebpackPlugin([
+            {
+                from: path.resolve(__dirname, "../src/assets/css"),
+                to: path.resolve(__dirname, "../dist/" + config.build.assetsSubDirectory + "/assets/css"),
+                ignore: ["*.less"]
+            }
+        ])/* ,
         new MomentLocalesPlugin({
             localesToKeep: ["zh-cn"]
         }) */
